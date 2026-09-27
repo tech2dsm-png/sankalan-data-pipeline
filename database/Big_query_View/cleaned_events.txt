@@ -1,0 +1,42 @@
+CREATE OR REPLACE VIEW `brilliant-dryad-439810-q6.analytics_453034732.cleaned_events` AS
+SELECT
+  user_pseudo_id,
+
+  -- GA4 session id (used for session-based KPIs)
+  (SELECT value.int_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'ga_session_id') AS session_id,
+
+  event_name,
+  event_timestamp,
+  TIMESTAMP_MICROS(event_timestamp) AS event_datetime,
+
+  -- Page details (used in Top Pages, Engagement, Bounce)
+  (SELECT value.string_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'page_location') AS page_url,
+
+  (SELECT value.string_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'page_title') AS page_title,
+
+  -- Browser info (used in Browser Breakdown)
+  (SELECT value.string_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'browser') AS browser,
+
+  -- Device & traffic source (optional future queries)
+  (SELECT value.string_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'device_category') AS device_category,
+  (SELECT value.string_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'source') AS source,
+  (SELECT value.string_value 
+   FROM UNNEST(event_params)
+   WHERE key = 'medium') AS medium
+
+FROM
+  `brilliant-dryad-439810-q6.analytics_453034732.events_*`
+WHERE
+  event_name IN ('page_view', 'session_start', 'conversion');

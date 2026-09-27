@@ -1,0 +1,37 @@
+ 
+
+img {
+            border-radius: 18%;
+          }
+
+ body {
+              background: #cce5ff;  
+              }     
+         
+              li a:hover{
+                background-color: #498;
+                 border-radius: 15px;
+              }
+              #menu li{
+                display:inline;
+                pading:8px;
+                color:#00F;
+                border-radius: 0px;
+                -webkit-border-radius:20px;
+                -moz-border-radius:20px;
+                -o-border-radius:20px;
+              }
+              #menu a:hover{
+                background-color: green;
+                border-radius: 15px;
+              }
+              #menu a{
+                padding: 15px;
+              }
+
+              .d{
+                font-family: sans-serif;
+                font-style: italic;
+                font-size: 20px;
+                margin-left: 1px;
+              }
